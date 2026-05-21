@@ -1,0 +1,60 @@
+name: GitWire Weekly Engine
+
+on:
+  schedule:
+    # Every Monday at 06:00 UTC — adjust to taste
+    - cron: "0 6 * * 1"
+
+  # Allow manual trigger from Actions tab (useful for testing)
+  workflow_dispatch:
+
+jobs:
+  generate:
+    name: Generate weekly edition
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      # 1. Check out the private engine repo
+      - name: Checkout engine
+        uses: actions/checkout@v4
+
+      # 2. Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # 3. Install dependencies
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # 4. Run scraper — writes weekly.json to CWD
+      - name: Run scraper
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GITHUB_TOKEN:   ${{ secrets.GH_PAT }}        # optional but recommended
+        run: python scraper.py
+
+      # 5. Clone the public repo using the deploy PAT
+      - name: Clone public repo
+        env:
+          DEPLOY_PAT: ${{ secrets.DEPLOY_PAT }}
+        run: |
+          git clone https://x-access-token:${DEPLOY_PAT}@github.com/nztdev/gitwire.git public_repo
+
+      # 6. Copy weekly.json into the public repo
+      - name: Copy weekly.json
+        run: cp weekly.json public_repo/weekly.json
+
+      # 7. Commit and push
+      - name: Commit and push
+        working-directory: public_repo
+        run: |
+          git config user.name  "GitWire Engine"
+          git config user.email "gitwire-engine@users.noreply.github.com"
+          git add weekly.json
+          # Only commit if something changed (idempotent on re-runs)
+          git diff --cached --quiet && echo "No changes to commit." || \
+            git commit -m "chore: weekly edition $(date -u +'%Y-%m-%d')"
+          git push
