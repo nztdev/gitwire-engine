@@ -1,0 +1,36 @@
+{
+  "edition": "001",
+  "weekRange": "—",
+  "generatedAt": "2025-01-06T06:00:00Z",
+  "_note": "Placeholder — will be overwritten by the engine on its first Monday run.",
+
+  "lead": {
+    "full_name": "gitwire/placeholder",
+    "description": "First edition coming Monday.",
+    "html_url": "https://github.com/nztdev/gitwire",
+    "stargazers_count": 0,
+    "forks_count": 0,
+    "language": "",
+    "topics": [],
+    "created_at": "2025-01-06T00:00:00Z",
+    "pushed_at": "2025-01-06T00:00:00Z"
+  },
+  "hoodRepo":    null,
+  "ideaRepo":    null,
+  "freshDrops":  [],
+  "resurrection": null,
+
+  "signalArticle":       "The first live edition will be published on Monday. Check back then.",
+  "hoodArticle":         "",
+  "ideaArticle":         "",
+  "dropDescriptions":    [],
+  "resurrectionArticle": "",
+
+  "numbers": {
+    "repoCount":  0,
+    "totalStars": 0,
+    "avgStars":   0,
+    "topLang":    "—",
+    "mostForked": null
+  }
+}
