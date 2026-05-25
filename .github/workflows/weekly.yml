@@ -2,7 +2,7 @@ name: GitWire Weekly Engine
 
 on:
   schedule:
-    # Every Monday at 06:00 UTC — adjust to taste
+    # Every Monday at 06:27 UTC — adjust to taste
     - cron: "27 6 * * 1"
 
   # Allow manual trigger from Actions tab (useful for testing)
