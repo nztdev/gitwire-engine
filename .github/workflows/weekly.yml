@@ -3,7 +3,7 @@ name: GitWire Weekly Engine
 on:
   schedule:
     # Every Monday at 06:27 UTC — adjust to taste
-    - cron: "22 6 * * 2"
+    - cron: '22 6 * * 1'
 
   # Allow manual trigger from Actions tab (useful for testing)
   workflow_dispatch:
